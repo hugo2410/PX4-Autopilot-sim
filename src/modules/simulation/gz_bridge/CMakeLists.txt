@@ -93,7 +93,6 @@ if(gz-transport_FOUND)
 		windy
 		baylands
   		lawn
-		custom_aruco
 	)
 
 	# find corresponding airframes
