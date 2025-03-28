@@ -519,9 +519,13 @@ void GZBridge::poseInfoCallback(const gz::msgs::Pose_V &pose)
 	}
 
 	pthread_mutex_lock(&_node_mutex);
+	// Find the position of the separator
+	size_t pos = _model_name.find('/');
 
+	// Extract the first part
+	std::string nested_model_name = (pos != std::string::npos) ? _model_name.substr(0, pos) : _model_name;
 	for (int p = 0; p < pose.pose_size(); p++) {
-		if (pose.pose(p).name() == _model_name) {
+		if (pose.pose(p).name() == nested_model_name) {
 
 			const uint64_t time_us = (pose.header().stamp().sec() * 1000000) + (pose.header().stamp().nsec() / 1000);
 
